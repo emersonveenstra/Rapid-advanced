@@ -60,5 +60,18 @@
     "icon": "https://stamen.com/wp-content/uploads/2016/07/stamen_compass_rose_small-01.png",
     "max_zoom": 20,
     "min_zoom": 4
+  },
+  {
+    "id": "strava-heatmap",
+    "name": "Strava Heatmap",
+    "type": "tms",
+    "category": "osmbasedmap",
+    "i18n": true,
+    "overlay": true,
+    "url": "https://heatmap-external-{switch:a,b,c}.strava.com/tiles/all/hot/{zoom}/{x}/{y}.png?v=19",
+    "extent":
+    {
+      "max_zoom": 15
+    }
   }
 ]

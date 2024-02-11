@@ -3,6 +3,8 @@ import { uiSectionPrivacy } from '../sections/privacy.js';
 //import { uiSectionColorSelection } from '../sections/color_selection.js';
 //import { uiSectionColorblindModeOptions } from '../sections/colorblind_mode_options.js';
 import { uiSectionMapInteractionOptions } from '../sections/map_interaction_options.js';
+import { uiSectionStravaActivityOptions } from '../sections/strava_activity_options';
+import { uiSectionStravaColorOptions } from '../sections/strava_color_options';
 
 
 export function uiPanePreferences(context) {
@@ -16,6 +18,8 @@ export function uiPanePreferences(context) {
     .sections([
       uiSectionPrivacy(context),
       uiSectionMapInteractionOptions(context),
+      uiSectionStravaActivityOptions(context),
+      uiSectionStravaColorOptions(context)
 //      uiSectionColorSelection(context),
 //      uiSectionColorblindModeOptions(context)
     ]);
