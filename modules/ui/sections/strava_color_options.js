@@ -1,10 +1,12 @@
-import { uiTooltip } from '../tooltip';
 import { uiSection } from '../section';
 
 
 export function uiSectionStravaColorOptions(context) {
   const storage = context.systems.storage;
   const l10n = context.systems.l10n;
+  const imagery = context.systems.imagery;
+  const map = context.systems.map;
+  let stravaSource = imagery.sources(map.extent(), map.zoom()).filter(isStrava)[0];
 
   const section = uiSection(context, 'strava-colors')
     .label(l10n.t('preferences.strava.colors.title'))
@@ -78,7 +80,17 @@ export function uiSectionStravaColorOptions(context) {
 
   function setColorOption(d3_event, d) {
     storage.setItem('prefs.strava.color', d);
+    toggleStrava();
     section.reRender();
+    window.setTimeout(toggleStrava, 400);
+  }
+
+  function isStrava(d) {
+    return d.id === 'strava-heatmap';
+  }
+
+  function toggleStrava() {
+    imagery.toggleOverlayLayer(stravaSource);
   }
 
   return section;
