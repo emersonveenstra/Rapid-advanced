@@ -996,6 +996,38 @@ en:
         pan:
           title: Pan the Map
           tooltip: Scrolling with the wheel will pan the map.  Holding down Shift will zoom and unzoom the map.
+    strava:
+      activities:
+        title: Strava Activities
+        all:
+          title: All
+          tooltip: All activities
+        ride:
+          title: Ride
+          tooltip: Biking activities
+        run:
+          title: Run
+          tooltip: Running or hiking activities
+        water:
+          title: Water
+          tooltip: Watersports
+        winter:
+          title: Winter
+          tooltip: Winter Activities
+      colors:
+        title: Strava Heatmap Colors
+        hot:
+          title: Hot
+        blue:
+          title: Blue
+        gray:
+          title: Gray
+        purple:
+          title: Purple
+        bluered:
+          title: Bluered
+        orange:
+          title: Orange
     color_selection:
       title: Map Color Scheme
       tooltip: Switch between color schemes

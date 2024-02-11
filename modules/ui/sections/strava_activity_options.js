@@ -7,7 +7,7 @@ export function uiSectionStravaActivityOptions(context) {
   const l10n = context.systems.l10n;
 
   const section = uiSection(context, 'strava-activities')
-    .label(l10n.t('preferences.strava_activities.title'))
+    .label(l10n.t('preferences.strava.activities.title'))
     .disclosureContent(renderDisclosureContent);
 
   const STRAVA_ACTIVITY_OPTIONS = ['all', 'ride', 'run', 'water', 'winter'];
@@ -23,9 +23,7 @@ export function uiSectionStravaActivityOptions(context) {
       .attr('class', 'strava-activity-options');
 
     enter
-      .append('div')
-      .attr('class', 'strava-activity-title')
-      .text(l10n.t('preferences.strava.activities.title'));
+      .append('div');
 
     enter
       .append('ul')

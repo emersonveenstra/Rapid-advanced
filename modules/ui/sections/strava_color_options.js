@@ -7,7 +7,7 @@ export function uiSectionStravaColorOptions(context) {
   const l10n = context.systems.l10n;
 
   const section = uiSection(context, 'strava-colors')
-    .label(l10n.t('preferences.strava_colors.title'))
+    .label(l10n.t('preferences.strava.colors.title'))
     .disclosureContent(renderDisclosureContent);
 
   const STRAVA_COLOR_OPTIONS = ['hot', 'blue', 'gray', 'purple', 'bluered', 'orange'];
@@ -23,9 +23,7 @@ export function uiSectionStravaColorOptions(context) {
       .attr('class', 'strava-color-options');
 
     enter
-      .append('div')
-      .attr('class', 'strava-color-title')
-      .text(l10n.t('preferences.strava.colors.title'));
+      .append('div');
 
     enter
       .append('ul')
@@ -49,11 +47,7 @@ export function uiSectionStravaColorOptions(context) {
 
     // Enter
     let enter = items.enter()
-      .append('li')
-      .call(uiTooltip(context)
-        .title(d => l10n.t(`preferences.strava.colors.${d}.tooltip`))
-        .placement('top')
-      );
+      .append('li');
 
     let label = enter
       .append('label');
