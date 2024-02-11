@@ -101,7 +101,7 @@ export function uiCommit(context) {
     const detected = utilDetect();
     const tags = {
       comment:     storage.getItem('comment') || '',
-      created_by:  context.cleanTagValue('Rapid ' + context.version),
+      created_by:  context.cleanTagValue('Rapid Advanced ' + context.version),
       host:        context.cleanTagValue(detected.host),
       locale:      context.cleanTagValue(localeCode)
     };
