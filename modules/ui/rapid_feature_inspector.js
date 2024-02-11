@@ -329,6 +329,11 @@ export function uiRapidFeatureInspector(context, keybinding) {
     return this;
   };
 
+  rapidInspector.autoAccept = function() {
+    onAcceptFeature();
+    return;
+  };
+
   if (keybinding) {
     keybinding()
       .on(l10n.t('rapid_feature_inspector.option_accept.key'), onAcceptFeature)

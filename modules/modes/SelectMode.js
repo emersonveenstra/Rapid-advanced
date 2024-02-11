@@ -148,7 +148,11 @@ export class SelectMode extends AbstractMode {
     } else if (datum.__fbid__) {
       this.keybinding = utilKeybinding('select-ai-features');
       const rapidInspector = uiRapidFeatureInspector(context, this.keybinding).datum(datum);
-      sidebarContent = rapidInspector;
+      if (context.systems.urlhash.getParam('poweruser') === 'true') {
+        rapidInspector.autoAccept();
+      } else {
+        sidebarContent = rapidInspector;
+      }
     }
 
 
