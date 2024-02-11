@@ -1162,6 +1162,9 @@ en:
     allowLargeEdits:
       label: Allow large edits
       description: Remove the limitations about editing features that are not currently visible
+    acceptOnHover:
+      label: Accept features on hover
+      description: Hold down Meta to automatically accept features on hover
   version:
     whats_new: "What's new in Rapid {version}"
   tag_reference:

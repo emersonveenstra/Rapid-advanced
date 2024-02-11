@@ -10,7 +10,7 @@ export function uiRapidPowerUserFeaturesDialog(context) {
   const urlhash = context.systems.urlhash;
 
   const featureFlags = [
-    'previewDatasets', 'tagnosticRoadCombine', 'tagSources', 'showAutoFix', 'allowLargeEdits'
+    'previewDatasets', 'tagnosticRoadCombine', 'tagSources', 'showAutoFix', 'allowLargeEdits', 'acceptOnHover'
   ];
 
   let _modalSelection = d3_select(null);

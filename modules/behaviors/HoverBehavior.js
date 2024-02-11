@@ -104,7 +104,7 @@ export class HoverBehavior extends AbstractBehavior {
     const context = this.context;
     const eventManager = context.systems.map.renderer.events;
     const modifiers = eventManager.modifierKeys;
-    const hasModifierKey = modifiers.has('Alt') || modifiers.has('Control') || modifiers.has('Meta');
+    const hasModifierKey = modifiers.has('Alt') || modifiers.has('Control');
     const eventData = Object.assign({}, this.lastMove);  // shallow copy
 
     // Handle situations where we don't want to hover a target way...
@@ -150,6 +150,14 @@ export class HoverBehavior extends AbstractBehavior {
     // Check if hover target has changed (coerce undefined -> null for fair comparison)
     const prevID = this.hoverTarget?.featureID || null;
     const currID = eventData?.target?.featureID || null;
+    const datum = eventData?.target?.data || null;
+    if (datum && datum.__fbid__ &&
+        context.systems.storage.getItem('rapid-internal-feature.acceptOnHover') === 'true' &&
+        modifiers.has('Meta') && context.systems.urlhash.getParam('poweruser') === 'true' &&
+        prevID !== currID) {
+      const selection = new Map().set(datum.id, datum);
+      context.enter('select', { selection: selection });
+    }
     if (prevID !== currID) {
       this.hoverTarget = Object.assign({}, eventData.target);  // shallow copy
       this.emit('hoverchange', eventData);
