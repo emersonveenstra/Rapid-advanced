@@ -82,8 +82,8 @@ export class OsmService extends AbstractSystem {
     this._oauth = osmAuth({
       url: this._wwwroot,
       apiUrl: this._apiroot,
-      client_id: 'O3g0mOUuA2WY5Fs826j5tP260qR3DDX7cIIE2R2WWSc',
-      client_secret: 'b4aeHD1cNeapPPQTrvpPoExqQRjybit6JBlNnxh62uE',
+      client_id: '9hg1V6hGbDQ38scfTCzcliUZhppRqd0RUt8iH13d-bU',
+      client_secret: 'OufiRLhYZhCK_vBRTWiqRzX89pwjgKDBjKEcHRtjB5E',
       scope: 'read_prefs write_prefs write_api read_gpx write_notes',
       redirect_uri: `${origin}${pathname}land.html`,
       loading: this._authLoading,
