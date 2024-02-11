@@ -13,7 +13,7 @@
   "type": "module",
   "main": "dist/rapid.min.js",
   "scripts": {
-    "all": "run-s clean build dist",
+    "all": "run-s clean build dist imagery",
     "benchmark": "run-p start:server test:benchmark",
     "benchmark-cicd": "run-p start:server test:cicd-benchmark",
     "build": "run-s build:css build:data build:bundle",
