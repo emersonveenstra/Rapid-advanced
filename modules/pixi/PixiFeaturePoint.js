@@ -265,7 +265,7 @@ export class PixiFeaturePoint extends AbstractFeature {
     }
 
     // Recalculate hitArea, grow it if too small
-    const MINSIZE = 20;
+    const MINSIZE = 10;
     const rect = this.marker.getLocalBounds().clone();
 
     if (this._isCircular) {
