@@ -203,7 +203,7 @@ export class DragNodeMode extends AbstractMode {
 //    } else if (target?.type === 'way' && choice) {
 //      loc = choice.loc;
 //    }
-    } else if (target?.type === 'way') {
+    } else if (target?.type === 'way' && this._canSnapToWay(target)) {
       const choice = geoChooseEdge(graph.childNodes(target), coord, projection, this.dragNode.id);
       const SNAP_DIST = 6;  // hack to avoid snap to fill, see #719
       if (choice && choice.distance < SNAP_DIST) {
@@ -264,7 +264,7 @@ export class DragNodeMode extends AbstractMode {
 //      const edge = [ target.nodes[choice.index - 1], target.nodes[choice.index] ];
 //      editor.perform(actionAddMidpoint({ loc: choice.loc, edge: edge }, this.dragNode));
 //      annotation = this._connectAnnotation(target);
-    } else if (target?.type === 'way') {
+    } else if (target?.type === 'way' && this._canSnapToWay(target)) {
       const choice = geoChooseEdge(graph.childNodes(target), eventData.coord, context.projection, this.dragNode.id);
       const SNAP_DIST = 6;  // hack to avoid snap to fill, see Rapid#719
       if (choice && choice.distance < SNAP_DIST) {
@@ -353,9 +353,85 @@ export class DragNodeMode extends AbstractMode {
     const editor = context.systems.editor;
     const graph = editor.staging.graph;
     const presets = context.systems.presets;
+    const storage = context.systems.storage;
+    const modifiers = context.systems.map.renderer.events.modifierKeys;
+
+    if (!modifiers.has('Meta')) {
+
+      if (storage.getItem('prefs.snapping_options.default.interaction') === 'yes') {
+        return false;
+      }
+      let targetKeys = [];
+      const targetWays = graph.parentWays(target);
+      if (targetWays.length === 0) {
+        targetKeys = [...Object.keys(target.tags)];
+      } else {
+        for (const tWay in targetWays) {
+          for (const t in targetWays[tWay].tags) {
+            targetKeys.push(t);
+          }
+        }
+      }
+
+      let dragKeys = [];
+      const dragWays = graph.parentWays(this.dragNode);
+      if (dragWays.length === 0) {
+        dragKeys = [...Object.keys(this.dragNode.tags)];
+      } else {
+        for (const dWay in dragWays) {
+          for (const d in dragWays[dWay].tags) {
+            dragKeys.push(d);
+          }
+        }
+      }
+      const difference = targetKeys.filter(x => !dragKeys.includes(x)).concat(dragKeys.filter(x => !targetKeys.includes(x)));
+      const conflictingTags = ['highway', 'building'];
+      const hasConflictingTags = difference.some(x => conflictingTags.includes(x));
+      if (hasConflictingTags && storage.getItem('prefs.snapping_options.dissimilar.interaction') === 'yes') {
+        return false;
+      }
+    }
+
 
     return this.dragNode.geometry(graph) !== 'vertex' ||
       (target.geometry(graph) === 'vertex' || presets.allowsVertex(target, graph));
+  }
+
+  _canSnapToWay(target) {
+    if (!this.dragNode) return false;
+
+    const context = this.context;
+    const editor = context.systems.editor;
+    const graph = editor.staging.graph;
+    const storage = context.systems.storage;
+    const disableAutoSnap = storage.getItem('prefs.snapping_options.default.interaction') === 'yes';
+    const disableSnapDissimilarObjects = storage.getItem('prefs.snapping_options.dissimilar.interaction') === 'yes';
+    const modifiers = context.systems.map.renderer.events.modifierKeys;
+
+    if (!modifiers.has('Meta')) {
+      if (disableAutoSnap) {
+        return false;
+      }
+      let targetKeys = [...Object.keys(target.tags)];
+
+      let dragKeys = [];
+      const dragWays = graph.parentWays(this.dragNode);
+      if (dragWays.length === 0) {
+        dragKeys = [...Object.keys(this.dragNode.tags)];
+      } else {
+        for (const dWay in dragWays) {
+          for (const d in dragWays[dWay].tags) {
+            dragKeys.push(d);
+          }
+        }
+      }
+      const difference = targetKeys.filter(x => !dragKeys.includes(x)).concat(dragKeys.filter(x => !targetKeys.includes(x)));
+      const conflictingTags = ['highway', 'building'];
+      if (disableSnapDissimilarObjects) {
+        return !difference.some(x => conflictingTags.includes(x));
+      }
+    }
+    return true;
   }
 
 

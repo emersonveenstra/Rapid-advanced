@@ -263,9 +263,16 @@ export class DragBehavior extends AbstractBehavior {
     if (!eventManager.pointerOverRenderer) return false;
 
     const modifiers = eventManager.modifierKeys;
-    const disableSnap = modifiers.has('Alt') || modifiers.has('Control') || modifiers.has('Meta');
+    const isModifierDown = modifiers.has('Meta');
+    const disableSnapOption = this.context.systems.storage.getItem('prefs.snapping_options.default.interaction') === 'yes';
+    if (disableSnapOption && !isModifierDown) {
+      return true;
+    }
+    if (!disableSnapOption && isModifierDown) {
+      return true;
+    }
 
-    return disableSnap;
+    return false;
   }
 
   /**
