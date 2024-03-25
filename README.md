@@ -1,6 +1,20 @@
 [![build](https://github.com/facebook/Rapid/workflows/build/badge.svg)](https://github.com/facebook/Rapid/actions?query=workflow%3A%22build%22)
 [![npm version](https://badge.fury.io/js/%40rapideditor%2Frapid.svg)](https://badge.fury.io/js/%40rapideditor%2Frapid)
 
+<h1 align="center">Rapid Advanced</h1>
+
+This is a version of Rapid meant for advanced users with some improvements. Current list of changes:
+- Some poweruser features
+- Built in Strava heatmap (need to install the [Rapid Power User Extension](https://github.com/emersonveenstra/rapid-power-user-extension) and log into Strava)
+- Option to disable automatic snapping, or disable snapping of dissimilar objects
+
+
+The main branch is automatically built and available at https://rapid.nodv.in
+
+Finally, please remember that Rapid features must always be manually checked for accuracy, even with the advanced features enabled.
+
+---
+
 
 <h1 align="center">Rapid</h1>
 
